@@ -31,15 +31,12 @@ describe('App e2e', () => {
     });
 
     it('success get by id', () => {
-      return pactum
-        .spec()
-        .get('draft/$S{document_id}') //id should be changed depending on your mongo db
-        .expectStatus(200);
+      return pactum.spec().get('draft/$S{document_id}').expectStatus(200);
     });
 
     it('success update', () => {
       let data = {
-        id: '$S{document_id}', //id should be changed depending on your mongo db
+        id: '$S{document_id}',
         title: 'Title',
         content: 'Content',
         author: 1,
@@ -56,7 +53,7 @@ describe('App e2e', () => {
 
     it('success create publish', () => {
       let data = {
-        id: '$S{document_id}', //depens id draft in your mongo db
+        id: '$S{document_id}',
         version: 1,
       };
 
@@ -64,10 +61,7 @@ describe('App e2e', () => {
     });
 
     it('success get by id', () => {
-      return pactum
-        .spec()
-        .get('publish/$S{publish_id}') //id should be changed depending on your mongo db
-        .expectStatus(200);
+      return pactum.spec().get('publish/$S{publish_id}').expectStatus(200);
     });
   });
 });
