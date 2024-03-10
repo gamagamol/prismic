@@ -137,10 +137,10 @@ export const PublishDocument = async (req: Request, res: ResponseToolkit) => {
         history: history_publish,
       };
 
-      updateDocumentPublish(publish[0]._id, PublishDocument);
+      await updateDocumentPublish(publish[0]._id, PublishDocument);
+      return res.response({ status: 201, message: 'Success Publish Document', payload: PublishDocument }).code(201);
     } else {
       // create data
-      console.log('masuk create');
 
       PublishDocument = {
         draft_id: id,
@@ -153,10 +153,9 @@ export const PublishDocument = async (req: Request, res: ResponseToolkit) => {
         updated_at: null,
         history: [],
       };
-      createDocumentPublish(PublishDocument);
+      await createDocumentPublish(PublishDocument);
+      return res.response({ status: 201, message: 'Success Publish Document', payload: PublishDocument }).code(201);
     }
-
-    return res.response({ status: 201, message: 'Success Publish Document' }).code(201);
   } catch (error) {
     return res
       .response({

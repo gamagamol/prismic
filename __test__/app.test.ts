@@ -27,31 +27,28 @@ describe('App e2e', () => {
         creator: 1,
       };
 
-      return pactum.spec().post('draft').withBody(data).expectStatus(201);
+      return pactum.spec().post('draft').withBody(data).expectStatus(201).inspect().stores('document_id', 'payload._id');
     });
 
     it('success get by id', () => {
       return pactum
         .spec()
-        .get('draft/' + '65ed731e171d077480cb9b72') //id should be changed depending on your mongo db
+        .get('draft/$S{document_id}') //id should be changed depending on your mongo db
         .expectStatus(200);
     });
 
     it('success update', () => {
       let data = {
-        id: '65ed731e171d077480cb9b72', //id should be changed depending on your mongo db
+        id: '$S{document_id}', //id should be changed depending on your mongo db
         title: 'Title',
         content: 'Content',
         author: 1,
       };
 
-      return pactum
-        .spec()
-        .put('draft')
-        .withBody(data)
-        .expectStatus(201)
+      return pactum.spec().put('draft').withBody(data).expectStatus(201);
     });
   });
+
   describe('publish', () => {
     it('Get ALL', () => {
       return pactum.spec().get('publish').expectStatus(200);
@@ -59,17 +56,17 @@ describe('App e2e', () => {
 
     it('success create publish', () => {
       let data = {
-        id: '65ed731e171d077480cb9b72', //depens id draft in your mongo db
+        id: '$S{document_id}', //depens id draft in your mongo db
         version: 1,
       };
 
-      return pactum.spec().post('publish').withBody(data).expectStatus(201);
+      return pactum.spec().post('publish').withBody(data).expectStatus(201).inspect().stores('publish_id', 'payload._id');
     });
 
     it('success get by id', () => {
       return pactum
         .spec()
-        .get('publish/' + '65ed731e171d077480cb9b72') //id should be changed depending on your mongo db
+        .get('publish/$S{publish_id}') //id should be changed depending on your mongo db
         .expectStatus(200);
     });
   });
