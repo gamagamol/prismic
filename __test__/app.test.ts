@@ -50,10 +50,6 @@ describe('App e2e', () => {
         .put('draft')
         .withBody(data)
         .expectStatus(201)
-        .expect((res: any) => {
-          console.log('Response:', res); // Debugging: Cetak respons ke konsol
-          console.log('Body:', res.body); // Debugging: Cetak body respons ke konsol
-        });
     });
   });
   describe('publish', () => {
